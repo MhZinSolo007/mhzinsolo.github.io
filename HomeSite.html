@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MhZin Project 1</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000; /* Cor de fundo preta */
+}
+
+.snow-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.snow-flake {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #fff; /* Cor branca */
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+/* Estilos originais */
+body {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url("https://telegra.ph/file/83234038955a235c78a10.jpg"); /* Set the background image */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.btn {
+  --color: #39f98f; /* Alterado para violeta escuro */
+  --color2: rgb(10, 25, 30);
+  width: 200px; /* Set a fixed width for the buttons */
+  padding: 0.8em 1.75em;
+  background-color: transparent;
+  border-radius: 6px;
+  border: .3px solid var(--color);
+  transition: .5s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: 300;
+  font-size: 17px;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  text-transform: uppercase;
+  color: white; /* Alterado para branco */
+  margin-bottom: 10px; /* Add margin to separate buttons */
+}
+
+.btn::after, .btn::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: skew(90deg) translate(-50%, -50%);
+  position: absolute;
+  inset: 50%;
+  left: 25%;
+  z-index: -1;
+  transition: .5s ease-out;
+  background-color: var(--color);
+}
+
+.btn::before {
+  top: -50%;
+  left: -25%;
+  transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::before {
+  transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn:hover::after {
+  transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btn:hover {
+  color: var(--color2);
+}
+
+.btn:active {
+  filter: brightness(.7);
+  transform: scale(.98);
+}
+
+.title {
+  font-family: 'Raleway', cursive;
+  font-size: 3em;
+  color: #39f98f; /* Mudança para violeta escuro */
+  text-align: center;
+  margin-top: 50px;
+  animation: titleAnimation 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.icon-animation {
+  color: #39f98f; /* Violeta escuro */
+  font-size: 24px;
+  margin-bottom: 10px;
+  animation: iconRotate 2s linear infinite;
+}
+
+@keyframes iconRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+</head>
+<body onload="playAudio()">
+  <audio id="audioPlayer" loop>
+    <source src="/audio/Mhz.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function playAudio() {
+      var audio = document.getElementById("audioPlayer");
+      audio.play();
+    }
+  </script>
+</body>
+
+<div class="snow-background"></div>
+
+<h1 class="title">MhZin Project 1</h1>
+<i class="fas fa-code icon-animation"></i> 
+<button onclick="window.open(`/PairingCode`)" class="btn">Subir Pairing Code</button>
+<button onclick="window.open(`/GerarEmails`)" class="btn">Gerar Email</button>
+<button onclick="window.open(`/GerarPessoa`)" class="btn">Gerar Pessoa</button>
+<button onclick="window.open(`/ModificarFonte`)" class="btn">Modificar Fonte</button>
+<button onclick="window.open(`/tempban`)" class="btn">Indisponibilizar Número</button>
+<script>
+var audio = document.getElementById("audioPlayer");
+
+// Função para iniciar a reprodução do áudio
+function playAudio() {
+  audio.play();
+  // Remover o evento de clique após a reprodução iniciar para evitar múltiplas reproduções
+  document.body.removeEventListener("click", playAudio);
+}
+
+// Criar flocos de neve continuamente
+for (let i = 0; i < 200; i++) {
+  createSnowFlake();
+}
+
+// Função para criar um floco de neve
+function createSnowFlake() {
+  const snowFlake = document.createElement("div");
+  snowFlake.classList.add("snow-flake");
+  snowFlake.style.left = Math.random() * window.innerWidth + "px";
+  snowFlake.style.top = Math.random() * window.innerHeight + "px"; // Posição inicial aleatória na tela
+  snowFlake.style.animationDuration = (Math.random() * 5 + 3) + "s"; // Duração da animação variável
+  document.body.appendChild(snowFlake);
+
+  // Animação da queda do floco de neve
+  setTimeout(function () {
+    snowFlake.style.top = window.innerHeight + "px";
+  }, 10);
+
+  // Remover o floco de neve após a animação
+  setTimeout(function () {
+    snowFlake.remove();
+    // Criar um novo floco de neve após a remoção para manter a animação contínua
+    createSnowFlake();
+  }, 8000);
+}
+</script>
+</a>
+<a href="https://api.whatsapp.com/send?phone=555381121269" target="_blank" style="color: #39f98f;">
+<i class="fab fa-whatsapp icon-animation"></i> - <span style="color: #39f98f;">Contato No WhatsApp</span>
+</a>
+
+</body>
+</html>
